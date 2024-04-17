@@ -2,6 +2,7 @@
 function validateForm(){
     var title = document.getElementById("title").value;
     var text = document.getElementById("text").value;
+    var image = document.getElementById("image").value;
 
     if(title == "") {
         alert("Title is Required");
@@ -12,6 +13,7 @@ function validateForm(){
         alert("Text is required");
         return false;
     }
+    
 
     return true;
 }
@@ -19,17 +21,17 @@ function validateForm(){
 
 
 function showData() {
-    var peopleList;
-    if(localStorage.getItem("peopleList") == null){
-        peopleList =[];
+    var postList;
+    if(localStorage.getItem("postList") == null){
+        postList =[];
     }
     else {
-        peopleList = JSON.parse(localStorage.getItem("peopleList"));
+        postList = JSON.parse(localStorage.getItem("postList"));
     }
 
     var html ="";
 
-    peopleList.forEach(function (element, index) {
+    postList.forEach(function (element, index) {
         html += "<tr>";
         html += "<td>" + element.title + "</td>";
         html += "<td>" + element.text + "</td>";
@@ -56,21 +58,21 @@ function addData() {
         var text = document.getElementById("text").value;
         var image = document.getElementById("image").value;
 
-        var peopleList;
-        if(localStorage.getItem("peopleList") == null){
-            peopleList =[];
+        var postList;
+        if(localStorage.getItem("postList") == null){
+            postList =[];
         }
         else {
-            peopleList = JSON.parse(localStorage.getItem("peopleList"));
+            postList = JSON.parse(localStorage.getItem("postList"));
         }
 
-        peopleList.push({
+        postList.push({
             title : title,
             text: text,
             image: image,
         });
 
-        localStorage.setItem("peopleList", JSON.stringify(peopleList));
+        localStorage.setItem("postList", JSON.stringify(postList));
         showData();
         document.getElementById("title").value = ""; 
         document.getElementById("text").value = "";
@@ -80,16 +82,16 @@ function addData() {
 
 
 function deleteData(index) {
-    var peopleList;
-    if(localStorage.getItem("peopleList") == null){
-        peopleList =[];
+    var postList;
+    if(localStorage.getItem("postList") == null){
+        postList =[];
     }
     else {
-        peopleList = JSON.parse(localStorage.getItem("peopleList"));
+        postList = JSON.parse(localStorage.getItem("postList"));
     }
 
-    peopleList.splice(index,1);
-    localStorage.setItem("peopleList", JSON.stringify (peopleList));
+    potList.splice(index,1);
+    localStorage.setItem("postList", JSON.stringify (postList));
     showData();
 }
 
@@ -98,23 +100,23 @@ function updateData(index){
     document.getElementById("Submit").style.display ="none";
     document.getElementById("Update").style.display ="block";
 
-    var peopleList;
-    if(localStorage.getItem("peopleList") == null) {
-        peopleList = [];
+    var postList;
+    if(localStorage.getItem("postList") == null) {
+        postList = [];
     } else {
-        peopleList = JSON.parse(localStorage.getItem ("peopleList"));
+        postList = JSON.parse(localStorage.getItem ("postList"));
     }
 
-    document.getElementById("title").value = peopleList[index].title;
-    document.getElementById("text").value = peopleList[index].text;
-    document.getElementById("image").value = peopleList[index].image;
+    document.getElementById("title").value = postList[index].title;
+    document.getElementById("text").value = postList[index].text;
+    document.getElementById("image").value = postList[index].image;
 
     document.querySelector("#Update").onclick = function() {
         if(validateForm() == true){
-            peopleList[index].title = document.getElementById("title").value;
-            peopleList[index].text = document.getElementById("text").value;
-            peopleList[index].image = document.getElementById("image").value;
-            localStorage.setItem("peopleList", JSON.stringify(peopleList));
+            postList[index].title = document.getElementById("title").value;
+            postList[index].text = document.getElementById("text").value;
+            postList[index].image = document.getElementById("image").value;
+            localStorage.setItem("postList", JSON.stringify(postList));
 
             showData();
 
